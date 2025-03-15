@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://48pqjolsnau6"]
+
+[ext_resource type="Script" path="res://Draw_Spline.cs" id="1_pvmri"]
+
+[node name="CanvasLayer" type="Node"]
+
+[node name="Draw" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "box", "gradient", "drawTangetLine")]
+script = ExtResource("1_pvmri")
+sprite = NodePath("../Sprite2D")
+box = NodePath("../Box")
+gradient = NodePath("../Box/HBoxContainer/Gradient")
+drawTangetLine = NodePath("../Box/HBoxContainer/DrawTangentLine")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Box" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Box"]
+layout_mode = 2
+
+[node name="Gradient" type="LineEdit" parent="Box/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="DrawTangentLine" type="CheckBox" parent="Box/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="mouse_entered" from="Box" to="Draw" method="MouseInBox"]
+[connection signal="mouse_exited" from="Box" to="Draw" method="MouseInBox"]
+[connection signal="text_submitted" from="Box/HBoxContainer/Gradient" to="Draw" method="UpdateGradient"]
